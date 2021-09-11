@@ -48,7 +48,7 @@ func main() {
 		fmt.Printf("[++]Scanning [%v] Ports\n", n)
 		portscan(target, n)
 	} else {
-		n := 1000
+		n := 10000
 		fmt.Printf("[++]Scanning [%v] Ports\n", n)
 		portscan(target, n)
 	}
