@@ -14,11 +14,13 @@ function Basic_Install
 	sudo systemctl restart redis.service
 
 	# Test if everything is OK
-	echo "ping" | redis-cli -h 127.0.0.1 &>/dev/null
+	echo "ping" | redis-cli -h 127.0.0.1
 
-	if [[ "echo $?" ]];
+	if [[ "echo $?" == "0" ]];
 	then
 		echo "Done"
+	else
+		echo "Error Ocuured during installation Process"
 	fi
 }
 
