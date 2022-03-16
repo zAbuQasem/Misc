@@ -19,11 +19,11 @@ class Monoaplha:
 
     def forge_key(self, msg, key):
         """Without spaces"""
-        # gencipher = list(dict.fromkeys(''.join(msg.split(" "))))
-        # genkey = list(dict.fromkeys(''.join(key.split(" "))))
+        gencipher = list(dict.fromkeys(''.join(msg.split(" "))))
+        genkey = list(dict.fromkeys(''.join(key.split(" "))))
         """With Spaces"""
-        gencipher = list(dict.fromkeys(list(msg)))
-        genkey = list(dict.fromkeys(list(key)))
+        # gencipher = list(dict.fromkeys(list(msg)))
+        # genkey = list(dict.fromkeys(list(key)))
         self.key = dict(zip(gencipher, genkey))
 
     def encrypt(self, msg, key=None):
@@ -125,5 +125,5 @@ if __name__ == '__main__':
 """
 Checks:
 Plain Text: "Attack postponed to tomorrow and do not use our secret paper until further info"
-Key = "The quick brown fox jumps over the lazy dog"
+Key : "The quick brown fox jumps over the lazy dog"
 """
