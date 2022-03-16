@@ -124,6 +124,6 @@ if __name__ == '__main__':
 
 """
 Checks:
-Attack postponed to tomorrow and do not use our secret paper until further info
-The quick brown fox jumps over the lazy dog
+Plain Text: "Attack postponed to tomorrow and do not use our secret paper until further info"
+Key = "The quick brown fox jumps over the lazy dog"
 """
