@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-
+# For more extensions use the folowing -> https://github.com/ptoomey3/evilarc
+# This script focuses mainly on tar.gz
 """
 This code creates a tar.gz file that can be used for a zipslip attack
 
