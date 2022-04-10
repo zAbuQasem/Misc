@@ -50,6 +50,9 @@ class Client:
                 data = self.s.recv(1024)
                 if data.decode() == "l":
                     self.s.send(data)
+                elif data.decode() == '' or data.decode() == "die":
+                    self.s.close()
+                    break
                 else:
                     console.print(f"[red]Received:[/red] {data}")
                     decrypted = self.decrypt(data)
