@@ -38,8 +38,8 @@ def getnext(num):
         return str(num) + "0" * (password_length -1)
     else:
         if (len(str(password))) <= password_length:
-            offset = password_length - (len(str(password))) - 1
-            payload = str(password) + str(num) + "0" * offset
+            padding = password_length - (len(str(password))) - 1
+            payload = str(password) + str(num) + "0" * padding
             return payload
         else:
             print("Kill yourself please")
