@@ -4,12 +4,10 @@ from pwn import *
 from rich.console import Console
 
 console = Console()
-binary = "./pin_checker"
-context.log_level = 'fatal'
-global password, password_length, msg, CheckTime
+binary = "<Executable>"
+context.log_level = 'warning'
 password = ''
-password_length = 8
-msg = b"Please enter your 8-digit PIN code:"
+password_length = 9 # change me
 CheckTime = {}
 
 def gettime():
@@ -19,34 +17,47 @@ def gettime():
             p = process(binary)
             payload = getnext(j)
             start = time.time()
-            p.sendlineafter(msg, payload)
+            p.sendlineafter(b"\n", payload.encode())
             p.recvall()
             stop = time.time()
             calculated_time = stop - start
             CheckTime[j] = calculated_time
-            #print(f"[@] Time: {calculated_time} --> {j}")
             p.close()
         if password:
             password += str(max(CheckTime, key=CheckTime.get))
         else:
             password = str(max(CheckTime, key=CheckTime.get))
 
-        #print("[!] Starting next iteration")
-        console.print(f"[bold blue][+] Password:[/bold blue] [yellow]{password}[/yellow]", end="\r")
-    console.print(f"[$] Password: {password}\n[!] Done :)\n", style="yellow")
+        console.print(f"[bold red]⎇ [/bold red] [white]Password:[/white] [yellow]{password}[/yellow]", end="\r")
+    console.print(f"[🔥] Password: {password}\n[✅] Done :)\n", style="yellow")
 
 def getnext(num):
     payload = ''
     global password, password_length, CheckTime
     if not password:
-        return str(num) + "0000000"
+        return str(num) + "0" * (password_length -1)
     else:
         if (len(str(password))) <= password_length:
             offset = password_length - (len(str(password))) - 1
             payload = str(password) + str(num) + "0" * offset
-            return payload.encode()
+            return payload
         else:
             print("Kill yourself please")
 
+def banner():
+    console.print("""
+  ████████ ██      ██
+ ██░░░░░░ ░░      ░██
+░██        ██     ░██  █████  ██████
+░█████████░██  ██████ ██░░░██░░██░░█
+░░░░░░░░██░██ ██░░░██░███████ ░██ ░
+       ░██░██░██  ░██░██░░░░  ░██
+ ████████ ░██░░██████░░██████░███
+░░░░░░░░  ░░  ░░░░░░  ░░░░░░ ░░░
+----------------------------------
+[bold red][⌛] Sider | POC for a simple side channel attack [/bold red]\n\n""", style="blue")
 
-gettime()
+if __name__ == "__main__":
+    banner()
+    console.print("[⚔] Starting the attack", style="bold blue")
+    gettime()
