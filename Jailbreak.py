@@ -12,7 +12,7 @@ def why():
 
 def hmmm(sig,frame):
     if sig == 8:
-        handler()
+        handler(sig,frame)
     else:
         print("\nLOL NOOB", end="")
 
