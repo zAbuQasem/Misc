@@ -26,7 +26,7 @@ if __name__ == '__main__':
     signal.signal(signal.SIGINT, hmmm)
     signal.signal(signal.SIGTSTP, hmmm)
     signal.signal(signal.SIGQUIT, signal.SIG_IGN)
-    signal.signal(signal.SIGFPE, handler)
+    signal.signal(signal.SIGFPE, hmmm)
     while True:
         try:
             var = input("Signal(Madness)>> ")
