@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/zeyad/.oh-my-zsh"
+export ZSH="/home/<HOME>/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -110,6 +110,5 @@ alias o='obsidian &>/dev/null & disown'
 alias ؤمثشق='clear'
 alias disable_aslr='echo 0 | sudo tee /proc/sys/kernel/randomize_va_space'
 alias enable_aslr='echo 2 | sudo tee /proc/sys/kernel/randomize_va_space'
-alias ctf='cd /home/zeyad/Desktop/psut-ctf'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
