@@ -106,6 +106,7 @@ export PATH="${PATH}:${HOME}/.local/bin/"
 export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 
+alias vim='nvim'
 alias o='obsidian &>/dev/null & disown'
 alias ؤمثشق='clear'
 alias disable_aslr='echo 0 | sudo tee /proc/sys/kernel/randomize_va_space'
