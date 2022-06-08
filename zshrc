@@ -111,5 +111,7 @@ alias o='obsidian &>/dev/null & disown'
 alias ؤمثشق='clear'
 alias disable_aslr='echo 0 | sudo tee /proc/sys/kernel/randomize_va_space'
 alias enable_aslr='echo 2 | sudo tee /proc/sys/kernel/randomize_va_space'
+alias ssh='TERM=xterm-color;PATH=~/.local/bin:/usr/bin:/usr/sandbox/:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/share/games:/usr/local/sbin:/usr/sbin:/sbin:~/.cargo/bin:$PATH ssh'
+alias multipull='cd ~/tools && sudo find . -mindepth 1 -maxdepth 1 -type d -print -exec sudo git -C {} pull \;'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
