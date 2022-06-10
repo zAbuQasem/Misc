@@ -114,4 +114,7 @@ alias enable_aslr='echo 2 | sudo tee /proc/sys/kernel/randomize_va_space'
 alias ssh='TERM=xterm-color;PATH=~/.local/bin:/usr/bin:/usr/sandbox/:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/share/games:/usr/local/sbin:/usr/sbin:/sbin:~/.cargo/bin:$PATH ssh'
 alias multipull='cd ~/tools && sudo find . -mindepth 1 -maxdepth 1 -type d -print -exec sudo git -C {} pull \;'
 
+# Fix keyboard layout (Uncomment when using i3)
+#setxkbmap -option 'grp:alt_shift_toggle' -layout us,ar -variant ,qwerty -model pc105
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
