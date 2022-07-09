@@ -2,16 +2,16 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/zeyad/.oh-my-zsh"
+export ZSH="/home/abuqasem/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+#ZSH_THEME="robbyrussell"
 #ZSH_THEME="miloshadzic"
 #ZSH_THEME="gnzh"
-#ZSH_THEME="jnrowe"
+ZSH_THEME="jnrowe"
 #
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -104,7 +104,7 @@ source $ZSH/oh-my-zsh.sh
 
 export PATH="${PATH}:${HOME}/.local/bin/"
 export GOPATH=$HOME/go
-export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin:$HOME/.local/bin:$PATH:/snap/bin
 
 alias vim='nvim'
 alias o='obsidian &>/dev/null & disown'
@@ -114,6 +114,17 @@ alias enable_aslr='echo 2 | sudo tee /proc/sys/kernel/randomize_va_space'
 alias battery='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
 alias hdd="cd /mnt/hdd"
 alias wifi-list='nmcli dev wifi'
+
+HtbEnv(){
+  if [[ -f ~/.tmuxinator/ || -f ~/.tmuxinator/htb.yml ]]
+  then
+    echo "[+] Starting HTB Session in 3 Seconds"
+    sleep 3
+    tmuxinator start htb
+  else:
+    echo "[!] htb.yml is not found"
+  fi
+}
 
 wificonnect(){
 	local RED='\033[0;31m'
@@ -141,3 +152,4 @@ wifidisconnect(){
 setxkbmap -option 'grp:alt_shift_toggle' -layout us,ar -variant ,qwerty -model pc105
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+function rtfm() { ~/tools/rtfm/rtfm.py "$@" 2>/dev/null }
