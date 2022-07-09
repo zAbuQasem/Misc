@@ -1,0 +1,23 @@
+# Openvpn Is a SUID binary
+name: HackTheBox
+root: ~/hackthebox/
+
+windows:
+  - VPN:
+      root: ~/
+      panes:
+        - openvpn ~/lab_AbuQasem.ovpn
+
+  - Main:
+      root: ~/hackthebox/
+
+  - Tools:
+      root: ~/tools/
+
+  - Listeners:
+      root: ~/www/
+      #layout: main-vertical
+      panes:
+        - updog
+        - nc -nlvp 9001
+
