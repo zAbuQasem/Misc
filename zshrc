@@ -116,7 +116,7 @@ alias hdd="cd /mnt/hdd"
 alias wifi-list='nmcli dev wifi'
 
 HtbEnv(){
-  if [[ -f ~/.tmuxinator/ || -f ~/.tmuxinator/htb.yml ]]
+  if [[ -f ~/.tmuxinator/ && -f ~/.tmuxinator/htb.yml ]]
   then
     echo "[+] Starting HTB Session in 3 Seconds"
     sleep 3
