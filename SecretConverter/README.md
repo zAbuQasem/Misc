@@ -13,9 +13,9 @@ data:
   PASSWORD: abuqasem@p@ssword!@
 ```
 ```bash
-python3 secret_converter.py -f <FILE.yml> -o <OUTFILE.yml>
+python3 SecretsConverter.py -f <FILE.yml> -o <OUTFILE.yml>
 # Example
-python3 secrets_converter.py -f plain.yml -o secrets.yml
+python3 SecretsConverter.py -f plain.yml -o secrets.yml
 ```
 - Output
  ```yml
