@@ -28,3 +28,12 @@ data:
   USER_NAME: emV5YWQ=
   PASSWORD: YWJ1cWFzZW1AcEBzc3dvcmQhQA==
 ```
+# Installation
+```bash
+pip3 install pyyaml
+```
+- Adding it to path
+```bash
+chmod +x SecretsConverter.py
+sudo mv SecretsConverter.py /usr/bin
+```
