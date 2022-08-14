@@ -37,3 +37,15 @@ pip3 install pyyaml
 chmod +x SecretsConverter.py
 sudo mv SecretsConverter.py /usr/bin
 ```
+# Piping directly to clipboard
+Install `xclip`
+```bash
+# Debian
+apt install xclip
+# Fedora/Centos
+dnf install xclip
+```
+Then
+```bash
+python3 SecretsConverter.py -f plain.yml | xclip -selection c
+```
