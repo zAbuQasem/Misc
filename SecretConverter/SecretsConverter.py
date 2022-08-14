@@ -13,6 +13,7 @@
 
 
 import yaml
+from sys import stdout
 import argparse
 from base64 import b64encode, b64decode
 
@@ -29,7 +30,7 @@ class SecretsConverter:
             file.close()
             return loaded_file
         except yaml.YAMLError as err:
-            print(err)
+            print(f"[!] Error Malformed Yaml file: {err}")
             exit(1)
 
     def converter(self):
@@ -48,15 +49,17 @@ class SecretsConverter:
             with open(self.output, "w") as outputfile:
                 yaml.dump(output, outputfile, sort_keys=False)
                 outputfile.close()
-        except Exception as e:
-            print(e)
+            # Priting the Output to console
+            yaml.safe_dump(output, stdout,sort_keys=False)
+        except Exception as err:
+            print(err)
 
 if __name__ == '__main__':
     try:
         parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
         options = parser.add_argument_group("Options")
         options.add_argument('-f', '--file', help='Input yaml file', required=True)
-        options.add_argument('-o', '--output', help='Output file name',default="secrets.yml")
+        options.add_argument('-o', '--output', help='Output file name',default="secrets.yml") 
         args = parser.parse_args()
         Runner = SecretsConverter(args)
         Runner.main()
