@@ -5,7 +5,7 @@
 Builder(){
   basedir=$(pwd)
   privchk $1 $2
-  
+  profile="--profile=$2"
   # Getting Directory names execluding current dirs
   dirs=$(find $(pwd)/ -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
   
@@ -14,7 +14,7 @@ Builder(){
     echo -e "\n[+] Building $dir"
     cd "$dir"
     docker build -t "$dir" . 
-    docker login --username AWS -p $(aws ecr get-login-password "$2") "$1"
+    docker login --username AWS -p $(aws ecr get-login-password "$profile") "$1"
     docker push "$dir"
     # Returning to the base dir
     cd $basedir
