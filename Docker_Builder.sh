@@ -1,12 +1,11 @@
 #!/bin/bash
 
 #set -xe
-basedir=$(pwd)
 
-
-Builder(){  
+Builder(){
+  basedir=$(pwd)
   privchk $1 $2
-
+  
   # Getting Directory names execluding current dirs
   dirs=$(find $(pwd)/ -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
   
