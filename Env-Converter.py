@@ -15,8 +15,8 @@ from sys import argv
 
 global template
 template = '''
-- name: "NAME"
-  value: "VALUE"
+- name: "FASOOLYA"
+  value: "BEEDA"
 '''
 
 def loadfile():
@@ -43,7 +43,7 @@ def convert():
     newdata = []
     data = loadfile()
     for k,v in data.items():
-        newdata.append(template.lstrip().replace("NAME",k.replace('"','')).replace("VALUE",v.replace('"','')))
+        newdata.append(template.lstrip().replace("FASOOLYA",k.replace('"','')).replace("BEEDA",v.replace('"','')))
     for i in newdata:
         print(i, end="")
 
