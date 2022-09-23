@@ -7,6 +7,7 @@
 #apt-cache policy docker-ce
 #sudo apt install docker-ce -y
 #sudo docker pull ubuntu
+cd /dev/shm
 wget https://github.com/zAbuQasem/Misc/raw/main/workshop.tar.gz
 tar -zxvf workshop.tar.gz
 sudo bash restart.sh
