@@ -9,4 +9,4 @@
 #sudo docker pull ubuntu
 wget https://github.com/zAbuQasem/Misc/raw/main/workshop.tar.gz
 tar -zxvf workshop.tar.gz
-bash restart.sh
+sudo bash restart.sh
