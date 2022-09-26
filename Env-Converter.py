@@ -11,7 +11,6 @@ from sys import argv
 # And the script will convert them to a yaml list as shown:
 # - name: NAME
 #   value: VALUE
-### The SCript will fail if the value or the name contain a "=" , So please remove them before running the script. (Too lazy to fix it)
 
 global template
 template = '''
@@ -27,12 +26,13 @@ def loadfile():
             env = [i for i in env1 if i]
             for i in env:
                 try:
-                    name,value = i.split("=")
+                    name,value = i.split("=",1)
                     data[name] = value
                 except ValueError:
-                    print("[!] Seems like You provided a value containig a '=' , Please remove it and try again.")
-                    print("[!] Please Double check the file for key=value errors")
-                    exit(1)
+                    print("[!] YOU PROVIDED THE FOLLOWING KEY WITHOUT A VALUE!!")
+                    print(f" -----> {i}")
+                    print("[@] Continuing any way\n")
+                    pass
             f.close()
             return data
     except FileNotFoundError:
