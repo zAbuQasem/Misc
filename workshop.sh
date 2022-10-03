@@ -1,7 +1,8 @@
 #!/bin/bash
 
 echo "[!] Checking if docker is installed"
-if [[ ! command -v docker ]];then
+if ! command -v docker &> /dev/null 
+then
   echo -n "[!] Installing Docker...\n"
   sudo apt update
   sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
@@ -10,15 +11,16 @@ if [[ ! command -v docker ]];then
   sudo apt update
   apt-cache policy docker-ce
   sudo apt install docker-ce -y
-  sudo docker pull ubuntu
-  if [[ ! command -v docker  ]];then
-    echo "\n\n[!] Error installing docker please contact zeyad"
+  sudo docker pull ubuntu 
+  if ! command -v docker &> /dev/null
+  then
+    echo -n  "\n\n[!] Error installing docker please contact zeyad"
     exit 127
   else
-    echo "\n\n[+] Installed docker Successfully"
+    echo -n "\n\n[+] Installed docker Successfully"
   fi
 else
-  echo "[+] Docker is already installed\n"
+  echo -n "[+] Docker is already installed\n"
 fi
 
 echo "[@] Adding $USER to docker group"
