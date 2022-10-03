@@ -27,8 +27,8 @@ fi
 echo "[@] Adding $USER to docker group"
 sudo adduser $USER docker
 echo "[@] Setting up working environment..."; sleep 2
-mkdir /opt/workshop
-cd /opt/workshop
+mkdir ~/Desktop/workshop
+cd ~/Desktop/workshop
 wget https://github.com/zAbuQasem/Misc/raw/main/workshop.tar.gz
 tar -zxvf workshop.tar.gz
 rm -rf workshop.tar.gz
