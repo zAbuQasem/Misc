@@ -32,4 +32,5 @@ cd ~/Desktop/workshop
 wget https://github.com/zAbuQasem/Misc/raw/main/workshop.tar.gz
 tar -zxvf workshop.tar.gz
 rm -rf workshop.tar.gz
-sudo bash restart.sh
+chmod +x restart.sh
+./restart.sh
