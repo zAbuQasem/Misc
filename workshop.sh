@@ -4,7 +4,7 @@ sudo ls &>/dev/null
 echo "[!] Checking if docker is installed"
 if ! command -v docker &> /dev/null 
 then
-  echo -n "[!] Installing Docker...\n"
+  echo -e "[!] Installing Docker...\n"
   sudo apt update
   sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
@@ -15,13 +15,13 @@ then
   sudo docker pull ubuntu 
   if ! command -v docker &> /dev/null
   then
-    echo -n  "\n\n[!] Error installing docker please contact zeyad"
+    echo -e  "\n\n[!] Error installing docker please contact zeyad"
     exit 127
   else
-    echo -n "\n\n[+] Installed docker Successfully"
+    echo -e "\n\n[+] Installed docker Successfully"
   fi
 else
-  echo -n "[+] Docker is already installed\n"
+  echo -e "[+] Docker is already installed\n"
 fi
 
 echo "[@] Adding $USER to docker group"
