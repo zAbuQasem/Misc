@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 echo "[!] Checking if docker is installed"
 if [[ ! command -v docker ]];then
