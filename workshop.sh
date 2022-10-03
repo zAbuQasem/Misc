@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sudo ls &>/dev/null
 echo "[!] Checking if docker is installed"
 if ! command -v docker &> /dev/null 
 then
