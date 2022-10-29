@@ -24,13 +24,13 @@ else
   echo -e "[+] Docker is already installed\n"
 fi
 
-echo "[@] Adding $USER to docker group"
-sudo adduser $USER docker
-echo "[@] Setting up working environment..."; sleep 2
-mkdir ~/Desktop/workshop
-cd ~/Desktop/workshop
-wget https://github.com/zAbuQasem/Misc/raw/main/workshop.tar.gz
-tar -zxvf workshop.tar.gz
-rm -rf workshop.tar.gz
-chmod +x restart.sh
-./restart.sh
+#echo "[@] Adding $USER to docker group"
+#sudo adduser $USER docker
+#echo "[@] Setting up working environment..."; sleep 2
+#mkdir ~/Desktop/workshop
+#cd ~/Desktop/workshop
+#wget https://github.com/zAbuQasem/Misc/raw/main/workshop.tar.gz
+#tar -zxvf workshop.tar.gz
+#rm -rf workshop.tar.gz
+#chmod +x restart.sh
+#./restart.sh
