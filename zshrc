@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/abuqasem/.oh-my-zsh"
+export ZSH="/home/<HOME>/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -106,7 +106,7 @@ export PATH="${PATH}:${HOME}/.local/bin/"
 export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin:$HOME/.local/bin:$PATH:/snap/bin
 
-alias vim='nvim'
+#alias vim='nvim'
 alias o='obsidian &>/dev/null & disown'
 alias ؤمثشق='clear'
 alias disable_aslr='echo 0 | sudo tee /proc/sys/kernel/randomize_va_space'
