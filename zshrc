@@ -114,6 +114,8 @@ alias enable_aslr='echo 2 | sudo tee /proc/sys/kernel/randomize_va_space'
 alias battery='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
 alias hdd="cd /mnt/hdd"
 alias wifi-list='nmcli dev wifi'
+alias ssh="TERM=xterm-256color ssh"
+alias k9s="TERM=xterm-256color K9S_EDITOR=nvim EDITOR=nvim k9s"
 
 HtbEnv(){
   if [[ -f ~/.tmuxinator/ && -f ~/.tmuxinator/htb.yml ]]
