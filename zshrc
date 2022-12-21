@@ -11,7 +11,8 @@ export ZSH="/home/<HOME>/.oh-my-zsh"
 #ZSH_THEME="robbyrussell"
 #ZSH_THEME="miloshadzic"
 #ZSH_THEME="gnzh"
-ZSH_THEME="jnrowe"
+#ZSH_THEME="jnrowe"
+ZSH_THEME="af-magic"
 #
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -106,7 +107,7 @@ export PATH="${PATH}:${HOME}/.local/bin/"
 export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin:$HOME/.local/bin:$PATH:/snap/bin
 
-#alias vim='nvim'
+alias vim='nvim'
 alias o='obsidian &>/dev/null & disown'
 alias ؤمثشق='clear'
 alias disable_aslr='echo 0 | sudo tee /proc/sys/kernel/randomize_va_space'
@@ -114,9 +115,6 @@ alias enable_aslr='echo 2 | sudo tee /proc/sys/kernel/randomize_va_space'
 alias battery='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
 alias hdd="cd /mnt/hdd"
 alias wifi-list='nmcli dev wifi'
-alias ssh="TERM=xterm-256color ssh"
-alias k9s="TERM=xterm-256color K9S_EDITOR=nvim EDITOR=nvim k9s"
-alias k="kubectl"
 
 HtbEnv(){
   if [[ -f ~/.tmuxinator/ && -f ~/.tmuxinator/htb.yml ]]
@@ -150,6 +148,18 @@ wifidisconnect(){
 		echo -e "${RED}[!] Usage: $0 <WIFI-SSID>${NC}"
 	fi
 }
+
+ctf_init(){
+	local RED='\033[0;31m'
+  local NC='\033[0m'
+	if [ "$#" -ne "0" ];
+	then
+		mkdir -p "$1"/{web,forensics,reverse,pwn}
+	else
+		echo -e "${RED}[!] Usage: $0 <CTF-NAME> ${NC}"
+	fi
+}
+
 
 # Fix keyboard layout
 setxkbmap -option 'grp:alt_shift_toggle' -layout us,ar -variant ,qwerty -model pc105
