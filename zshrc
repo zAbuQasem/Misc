@@ -226,12 +226,3 @@ setxkbmap -option 'grp:alt_shift_toggle' -layout us,ar -variant ,qwerty -model p
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 function rtfm() { ~/tools/rtfm/rtfm.py "$@" 2>/dev/null }
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
- eval "$(pyenv init --path)"
-fi
