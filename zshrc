@@ -1,8 +1,8 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-
+unsetopt autocd
 # Path to your oh-my-zsh installation.
-export ZSH="/home/<HOME>/.oh-my-zsh"
+export ZSH="/home/kali/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -12,7 +12,8 @@ export ZSH="/home/<HOME>/.oh-my-zsh"
 #ZSH_THEME="miloshadzic"
 #ZSH_THEME="gnzh"
 #ZSH_THEME="jnrowe"
-ZSH_THEME="af-magic"
+#ZSH_THEME="af-magic"
+ZSH_THEME="miloshadzic"
 #
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -74,8 +75,64 @@ ZSH_THEME="af-magic"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git command-not-found tmux)
+plugins=(git command-not-found tmux fzf ssh-agent zsh-syntax-highlighting zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
+
+# zsh-syntax-highlighting
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
+ZSH_HIGHLIGHT_STYLES[default]=none
+ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=red,bold
+ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=cyan,bold
+ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=green,underline
+ZSH_HIGHLIGHT_STYLES[global-alias]=fg=magenta
+ZSH_HIGHLIGHT_STYLES[precommand]=fg=green,underline
+ZSH_HIGHLIGHT_STYLES[commandseparator]=fg=blue,bold
+ZSH_HIGHLIGHT_STYLES[autodirectory]=fg=green,underline
+ZSH_HIGHLIGHT_STYLES[path]=underline
+ZSH_HIGHLIGHT_STYLES[path_pathseparator]=
+ZSH_HIGHLIGHT_STYLES[path_prefix_pathseparator]=
+ZSH_HIGHLIGHT_STYLES[globbing]=fg=blue,bold
+ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=blue,bold
+ZSH_HIGHLIGHT_STYLES[command-substitution]=none
+ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]=fg=magenta
+ZSH_HIGHLIGHT_STYLES[process-substitution]=none
+ZSH_HIGHLIGHT_STYLES[process-substitution-delimiter]=fg=magenta
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=magenta
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=magenta
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]=none
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument-delimiter]=fg=blue,bold
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=yellow
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=yellow
+ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]=fg=yellow
+ZSH_HIGHLIGHT_STYLES[rc-quote]=fg=magenta
+ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=magenta
+ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=magenta
+ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]=fg=magenta
+ZSH_HIGHLIGHT_STYLES[assign]=none
+ZSH_HIGHLIGHT_STYLES[redirection]=fg=blue,bold
+ZSH_HIGHLIGHT_STYLES[comment]=fg=black,bold
+ZSH_HIGHLIGHT_STYLES[named-fd]=none
+ZSH_HIGHLIGHT_STYLES[numeric-fd]=none
+ZSH_HIGHLIGHT_STYLES[arg0]=fg=green
+ZSH_HIGHLIGHT_STYLES[bracket-error]=fg=red,bold
+ZSH_HIGHLIGHT_STYLES[bracket-level-1]=fg=blue,bold
+ZSH_HIGHLIGHT_STYLES[bracket-level-2]=fg=green,bold
+ZSH_HIGHLIGHT_STYLES[bracket-level-3]=fg=magenta,bold
+ZSH_HIGHLIGHT_STYLES[bracket-level-4]=fg=yellow,bold
+ZSH_HIGHLIGHT_STYLES[bracket-level-5]=fg=cyan,bold
+ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]=standout
+
+# zsh-autosuggestions
+#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=244"  # choose when using 256-color theme
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#999999"
+
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#fzcode() { print -z `cat ~/.fzcode/{posts,ppn} | fzf --tac --cycle --height=~50% --color=16` }
+SharpCollection() { print -z `curl -sSL "https://api.github.com/repos/Flangvik/SharpCollection/git/trees/master?recursive=1" | jq -r ".tree[].path" | grep \\.exe | while read line; do echo "curl -sSL https://github.com/Flangvik/SharpCollection/raw/master/$line -o"; done | fzf --tac --cycle --height=~50% --color=16` }
+Feroxbuster-w() { print -z `([ -d /usr/share/seclists ] && find /usr/share/seclists/Discovery/Web-Content -maxdepth 1 -type f || find /usr/share/wordlists/dirbuster/ -maxdepth 1 -type f) | sort | while read line; do echo "feroxbuster -w $line -A -k -r -t 15 -n -u"; done | fzf --tac --cycle --height=~50% --color=16` }
+Ffuf-w() { print -z `([ -d /usr/share/seclists ] && find /usr/share/seclists/Discovery/Web-Content -maxdepth 1 -type f || find /usr/share/wordlists/dirbuster/ -maxdepth 1 -type f) | sort | while read line; do echo "ffuf -w $line -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36' -ic -sf -r -c -t 15 -mc all -u"; done | fzf --tac --cycle --height=~50% --color=16` }
+Httpx-p() { print -z `(echo 'httpx -sc -fr -location -title -server -td -method -ip -cname -cdn -p "80,81,443,1080,3000,3128,7001,7002,8080,8443,8888" -t 15 -l'; echo 'httpx -sc -fr -location -title -server -td -method -ip -cname -cdn -t 15 -l') | fzf --tac --cycle --height=~50% --color=16` }
 
 # User configuration
 
@@ -105,7 +162,7 @@ source $ZSH/oh-my-zsh.sh
 
 export PATH="${PATH}:${HOME}/.local/bin/"
 export GOPATH=$HOME/go
-export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin:$HOME/.local/bin:$PATH:/snap/bin
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin:$HOME/.local/bin:$PATH:/snap/bin:$HOME/.cargo/env:$HOME/.cargo/bin/
 
 alias vim='nvim'
 alias o='obsidian &>/dev/null & disown'
@@ -115,6 +172,9 @@ alias enable_aslr='echo 2 | sudo tee /proc/sys/kernel/randomize_va_space'
 alias battery='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
 alias hdd="cd /mnt/hdd"
 alias wifi-list='nmcli dev wifi'
+alias clipboard="xclip -sel clip"
+alias windows-exploit-suggester="$(which wes)"
+alias ctf="cd ~/ctf/just_2023/"
 
 HtbEnv(){
   if [[ -f ~/.tmuxinator/ && -f ~/.tmuxinator/htb.yml ]]
@@ -159,10 +219,19 @@ ctf_init(){
 		echo -e "${RED}[!] Usage: $0 <CTF-NAME> ${NC}"
 	fi
 }
-
-
 # Fix keyboard layout
 setxkbmap -option 'grp:alt_shift_toggle' -layout us,ar -variant ,qwerty -model pc105
 
+# pwninit (auto patch binarieera)
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 function rtfm() { ~/tools/rtfm/rtfm.py "$@" 2>/dev/null }
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+ eval "$(pyenv init --path)"
+fi
