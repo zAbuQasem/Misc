@@ -174,7 +174,8 @@ alias hdd="cd /mnt/hdd"
 alias wifi-list='nmcli dev wifi'
 alias clipboard="xclip -sel clip"
 alias windows-exploit-suggester="$(which wes)"
-alias ctf="cd ~/ctf/just_2023/"
+alias pullall="ls | xargs -P10 -I{} git -C {} pull"
+
 
 HtbEnv(){
   if [[ -f ~/.tmuxinator/ && -f ~/.tmuxinator/htb.yml ]]
