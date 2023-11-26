@@ -75,8 +75,9 @@ ZSH_THEME="miloshadzic"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git command-not-found tmux fzf ssh-agent zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git  kube-ps1 command-not-found tmux fzf ssh-agent zsh-syntax-highlighting zsh-autosuggestions web-search)
 source $ZSH/oh-my-zsh.sh
+RPROMPT='$(kube_ps1)'
 
 # zsh-syntax-highlighting
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
@@ -172,10 +173,24 @@ alias enable_aslr='echo 2 | sudo tee /proc/sys/kernel/randomize_va_space'
 alias battery='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
 alias hdd="cd /mnt/hdd"
 alias wifi-list='nmcli dev wifi'
-alias clipboard="xclip -sel clip"
+alias c="xclip -sel clip"
 alias windows-exploit-suggester="$(which wes)"
 alias pullall="ls | xargs -P10 -I{} git -C {} pull"
+source <(kubectl completion zsh)
+compdef kubecolor=kubectl
+alias k="kubecolor"
+alias ktx="kubectl config use-context"
+alias cat='batcat'
+alias argocd-creds='kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d | c '
+alias fmt='find ./ -type f -name "*.tf" -exec terraform fmt {} \;'
 
+quick-ping (){ DST="$@"; timeout 1 bash -c "echo > /dev/tcp/$DST &>/dev/null" && echo 'Open' || echo 'Closed'  }
+howto (){ CMD="$@"; /usr/local/bin/tgpt "$CMD" }
+pullpush (){ CommitMSG="$@"; git add . ; git commit -m "$CommitMSG"; git pull ;git show }
+b64 (){ TXT="$@"; echo -n "$TXT" | base64 -w0 }
+b64d (){ TXT="$@"; echo $TXT | base64 -d -w0 }
+
+complete -C '/usr/local/bin/aws_completer' aws
 
 HtbEnv(){
   if [[ -f ~/.tmuxinator/ && -f ~/.tmuxinator/htb.yml ]]
@@ -222,8 +237,7 @@ ctf_init(){
 }
 # Fix keyboard layout
 setxkbmap -option 'grp:alt_shift_toggle' -layout us,ar -variant ,qwerty -model pc105
-
+source <(argocd completion zsh)
 # pwninit (auto patch binarieera)
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 function rtfm() { ~/tools/rtfm/rtfm.py "$@" 2>/dev/null }
