@@ -68,4 +68,4 @@ echo -e "Categories=Utility;" >> "$DESKTOP_ENTRY_FILE"
 
 desktop-file-install --dir="$HOME/.local/share/applications" "$DESKTOP_ENTRY_FILE"
 
-echo -e "${GREEN}${APP_NAME} added to the application menu.${NC}"
+echo -e "${GREEN}[+] ${APP_NAME} added to the application menu.${NC}"
